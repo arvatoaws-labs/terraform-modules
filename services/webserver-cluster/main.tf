@@ -18,11 +18,11 @@ resource "aws_launch_configuration" "example" {
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.sh")
 
-  vars = {
-    server_port = var.server_port
-    db_address  = data.terraform_remote_state.db.outputs.address
-    db_port     = data.terraform_remote_state.db.outputs.port
-  }
+#  vars = {
+#    server_port = var.server_port
+#    db_address  = data.terraform_remote_state.db.outputs.address
+#    db_port     = data.terraform_remote_state.db.outputs.port
+#  }
 }
 
 resource "aws_autoscaling_group" "example" {
@@ -137,15 +137,15 @@ resource "aws_security_group_rule" "allow_all_outbound" {
   cidr_blocks = local.all_ips
 }
 
-data "terraform_remote_state" "db" {
-  backend = "s3"
+#data "terraform_remote_state" "db" {
+#  backend = "s3"
 
-  config = {
-    bucket = var.db_remote_state_bucket
-    key    = var.db_remote_state_key
-    region = "eu-central-1"
-  }
-}
+#  config = {
+#    bucket = var.db_remote_state_bucket
+#    key    = var.db_remote_state_key
+#    region = "eu-central-1"
+#  }
+#}
 
 locals {
   http_port    = 80
