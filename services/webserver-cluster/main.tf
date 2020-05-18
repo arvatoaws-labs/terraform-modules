@@ -18,6 +18,10 @@ resource "aws_launch_configuration" "example" {
 
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.sh")
+
+  vars = {
+    server_port = var.server_port
+  }
 }
 
 resource "aws_autoscaling_group" "example" {
